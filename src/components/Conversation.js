@@ -2,9 +2,13 @@ import React from 'react'
 
 class Conversation extends React.Component {
     render() {
+
+        const { eachConvo } = this.props
+
         return(
             <div>
-                <p>SINGLE CONVERSATION</p>
+                <h2>{eachConvo.title}</h2>
+                <p>{eachConvo.start_date}</p>
             </div>
         )
     }

@@ -26,10 +26,16 @@ class ConversationContainer extends React.Component {
     }
 
     render() {
+
+        const { conversations } = this.state
         return(
             <>
                 <Search />
-                <Conversation />
+                
+                {conversations.map(eachConvo => 
+                    <Conversation key={eachConvo.id} eachConvo={eachConvo} />
+                )}
+                
             </>
         )
     }

@@ -4,10 +4,13 @@ import ConversationContainer from './components/ConversationContainer'
 
 
 const App = () => {
-  <>
-    <Search />
-    <ConversationContainer />
-  </>
+  return (
+    <>
+      <Search />
+      <ConversationContainer />
+    </>
+  )
+
 }
 
 export default App

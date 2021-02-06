@@ -25,14 +25,20 @@ class ConversationContainer extends React.Component {
         })
     }
 
+    handleSearch = event => {
+        this.setState({ searchTerm: event.target.value })
+    }
+
     render() {
 
-        const { conversations } = this.state
+        const { conversations, searchTerm } = this.state
+        const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
+
         return(
             <>
-                <Search />
+                <Search handleSearch={this.handleSearch}/>
                 
-                {conversations.map(eachConvo => 
+                {searchedConvos.map(eachConvo => 
                     <Conversation key={eachConvo.id} eachConvo={eachConvo} />
                 )}
                 

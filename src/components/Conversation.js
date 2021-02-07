@@ -68,7 +68,7 @@ class Conversation extends React.Component {
                 <div>
                     <Link to='/messages' ><h2 onClick={this.toggleTitleClicked}>{eachConvo.title}</h2></Link> 
                     <p>Start Date: {eachConvo.start_date}</p>
-                    {this.titleClicked ? <MessagesContainer id={eachConvo.id} messages={messages} /> : null }
+                    {this.titleClicked ? <MessagesContainer id={eachConvo.id}/> : null }
                     
 
                 </div>

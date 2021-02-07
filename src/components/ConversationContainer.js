@@ -13,13 +13,13 @@ class ConversationContainer extends React.Component {
     state = {
         conversations: [],
         searchTerm: '',
-        title: '',
-        messages: []
+        title: ''
+        // messages: []
     }
 
     componentDidMount() {
         this.getConversations()
-        this.getMessages()
+        // this.getMessages()
     }
 
     getConversations = () => {
@@ -87,7 +87,9 @@ class ConversationContainer extends React.Component {
 
     render() {
 
-        const { conversations, searchTerm, title, messages } = this.state
+        const { conversations, searchTerm, title } = this.state
+        const { messages } = this.props
+
         const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
        
         console.log(this.state.messages)
@@ -111,7 +113,7 @@ class ConversationContainer extends React.Component {
                     eachConvo={eachConvo} 
                     handleChange={this.handleChange} 
                     addNewMessage={this.addNewMessage}
-                    messages={messages}
+                    // messages={messages}
                     />
 
                 )}

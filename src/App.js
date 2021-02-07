@@ -46,11 +46,15 @@ render() {
 <div>
     <Switch>
 
-        <Route  path='/conversations/:id' render={ (routeProps) => {
-          const convoId = parseInt(routeProps.match.params.id)
-          return <ConversationShowPage {...routeProps} convoId={convoId} />  } } />
+        {/* <Route  path='/conversations/:id' render={ (routerProps) => {
+          const convoId = parseInt(routerProps.match.params.id)
+          return <ConversationShowPage routerProps={routerProps} convoId={convoId} />  } } /> */}
+
+        <Route  path='/conversations/:id' render={ routerProps => <ConversationShowPage {...routerProps} /> } />
+        <Route  path='/conversations' render={ (history) => <ConversationContainer  />} />
         <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
-        <Route  path='/' render={ (history) => <ConversationContainer  />} />
+        {/* <Route  path='/' render={ (history) => <ConversationContainer  />} /> */}
+
 
     </Switch>
 </div>

@@ -6,6 +6,7 @@ To view the backend repo, visit: https://github.com/vmar13/mini-remesh-api
 
 ## Prerequisites
 * React v17.0.1
+* Node v13.9.0
 
 ## Installation
 1. Start the backend using the link above

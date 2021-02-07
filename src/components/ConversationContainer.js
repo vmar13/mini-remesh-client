@@ -5,17 +5,22 @@ import ConversationForm from './ConversationForm'
 
 
 const API_CONVOS = `http://localhost:3000/api/v1/conversations`
+const API_MESSAGES = `http://localhost:3000/api/v1/messages`
+
 
 class ConversationContainer extends React.Component {
 
     state = {
         conversations: [],
         searchTerm: '',
-        title: ''
+        title: '',
+        messages: []
+     
     }
 
     componentDidMount() {
         this.getConversations()
+        this.getMessages()
     }
 
     getConversations = () => {
@@ -27,11 +32,21 @@ class ConversationContainer extends React.Component {
         })
     }
 
-    addNewConvo = newConvo => { 
-        this.setState({
-          conversations: [...this.state.conversations, newConvo]
+    getMessages = () => {
+        fetch(API_MESSAGES)
+        .then(res => res.json())
+        .then(allMessages => {
+            this.setState({ messages: allMessages })
         })
+    }
+
+    addNewConvo = newConvo => { 
+        this.setState({ conversations: [...this.state.conversations, newConvo]})
       }
+
+    addNewMessage = newMessage => {
+        this.setState({ messages: [...this.state.messages, newMessage]})
+    }
 
     handleSearch = event => {
         this.setState({ searchTerm: event.target.value })
@@ -41,7 +56,7 @@ class ConversationContainer extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    handleSubmit = event => {
+    handleConvoSubmit = event => {
         event.preventDefault()
         let getDate = new Date().toLocaleDateString("en-US")
         let reversedDate = getDate.split('/').reverse()
@@ -69,6 +84,7 @@ class ConversationContainer extends React.Component {
         .then( () => this.setState({ title: '' }))
     }
 
+
     render() {
 
         const { conversations, searchTerm, title } = this.state
@@ -80,7 +96,7 @@ class ConversationContainer extends React.Component {
                 {/*This component creates a conversation */}       
                 <ConversationForm 
                 handleChange={this.handleChange} 
-                handleSubmit={this.handleSubmit}
+                handleConvoSubmit={this.handleConvoSubmit}
                 title={title} />
                 <br/><br/>
 
@@ -93,6 +109,7 @@ class ConversationContainer extends React.Component {
                     key={eachConvo.id} 
                     eachConvo={eachConvo} 
                     handleChange={this.handleChange} 
+                    addNewMessage={this.addNewMessage}
                     />
                 )}
                 

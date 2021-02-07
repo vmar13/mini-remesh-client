@@ -1,6 +1,7 @@
 import React from 'react'
 import Search from './Search'
 import Conversation from './Conversation'
+import ConversationForm from './ConversationForm'
 
 
 const API_CONVOS = `http://localhost:3000/api/v1/conversations`
@@ -9,7 +10,8 @@ class ConversationContainer extends React.Component {
 
     state = {
         conversations: [],
-        searchTerm: ''
+        searchTerm: '',
+        title: ''
     }
 
     componentDidMount() {
@@ -29,13 +31,47 @@ class ConversationContainer extends React.Component {
         this.setState({ searchTerm: event.target.value })
     }
 
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+        let startDate = new Date().toLocaleDateString("en-US")
+
+        const newConvo = {
+            title: this.state.title,
+            start_date: startDate
+        }
+
+        fetch(API_CONVOS, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify(newConvo)
+        })
+        .then(res => res.json())
+        .then(newConvo => {
+            console.log(newConvo)
+        })
+    }
+
     render() {
 
-        const { conversations, searchTerm } = this.state
+        const { conversations, searchTerm, title } = this.state
         const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
-
+        let startDate = new Date().toLocaleDateString("en-US")
+        console.log(startDate)
         return(
             <>
+                <ConversationForm 
+                handleChange={this.handleChange} 
+                handleSubmit={this.handleSubmit}
+                title={title} />
+                <br/><br/>
+
                 <Search handleSearch={this.handleSearch}/>
                 
                 {searchedConvos.map(eachConvo => 

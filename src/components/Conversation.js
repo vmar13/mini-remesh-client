@@ -55,8 +55,7 @@ class Conversation extends React.Component {
 
     render() {
 
-        const { convoObj, messages, convoId } = this.props
-        console.log(this.props.convoId)
+        const { convoObj, messages } = this.props
 
         //If you click on a convoTitle, you should be taken to convo show page /conversations/:id
         //On that convo show page, you'd render the messages container for that single convo
@@ -64,7 +63,7 @@ class Conversation extends React.Component {
         return(
             <>
                 <div>
-                    <Link to={`/conversations/${convoId}`} ><h2>{convoObj.title}</h2></Link> 
+                    <Link to={`/conversations/${convoObj.id}`} ><h2>{convoObj.title}</h2></Link> 
                     <p>Start Date: {convoObj.start_date}</p>
                     {/* {this.titleClicked ? <MessagesContainer convoId={eachConvo.id}/> : null } */}
                     

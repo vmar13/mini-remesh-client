@@ -5,10 +5,11 @@ import ConversationContainer from './components/ConversationContainer'
 //   Route, 
 //   Switch
 // } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import MessagesContainer from './components/MessagesContainer'
 import ConversationShowPage from './components/ConversationShowPage'
+import Conversation from './components/Conversation'
 
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
@@ -46,14 +47,18 @@ render() {
 <div>
     <Switch>
 
-        {/* <Route  path='/conversations/:id' render={ (routerProps) => {
-          const convoId = parseInt(routerProps.match.params.id)
-          return <ConversationShowPage routerProps={routerProps} convoId={convoId} />  } } /> */}
+        <Route 
+          exact path='/conversations/:id' 
+          render={ (props) => {
+          <ConversationShowPage 
+            history={props.history}
+            id={props.match.params.id} />  } } />
 
-        <Route  path='/conversations/:id' render={ routerProps => <ConversationShowPage {...routerProps} /> } />
-        <Route  path='/conversations' render={ (history) => <ConversationContainer  />} />
+        {/* <Route  path='/conversations/:id' render={ routerProps => <ConversationShowPage {...routerProps} /> } /> */}
+        <Route  path='/conversations' render={ () => <ConversationContainer  />} />
+        <Route  path='/conversation' render={ () => <Conversation  />} />
         <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
-        {/* <Route  path='/' render={ (history) => <ConversationContainer  />} /> */}
+        <Route  exact path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 
     </Switch>

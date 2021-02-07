@@ -13,19 +13,21 @@ class ConversationShowPage extends React.Component{
     }
 
     getConvoObj = () => {
-        fetch(`${API_CONVOS}/${this.props.match.params.id}`)
+        fetch(`${API_CONVOS}/${this.props.id}`)
         .then(res => res.json())
         .then(convo => {
             this.setState({ 
-                convoObj: convo,
+                conversationObj: convo,
             })
         })
     }
     render() {
 
-        console.log(this.props.match.params.id)
         return (
+            <>
             <div>SINGLE CONVO & MESSAGES CONTAINER BELOW</div>
+            <p>{this.state.conversationObj.id}</p>
+            </>
         )
     }
 }

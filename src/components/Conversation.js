@@ -14,29 +14,6 @@ class Conversation extends React.Component {
         titleClicked: false
     }
 
-    // componentDidMount(){
-    //     this.filterMessages(this.props.eachConvo.id)
-    // }
-
-    // filterMessages = (id) => {
-    //     let filteredMessages
-    //     filteredMessages = this.props.messages.filter(message => {
-    //         if(message.conversation_id === id){
-    //             this.setState({ filteredMsgs: filteredMessages})
-    //         } else {
-    //             return 
-    //         }
-    //     })
-    // }
-
-    // filterMessages = () => {
-    //     let filteredMessages = this.props.messages.filter(message => {
-    //         message.conversation_id === this.props.eachConvo.id
-    //         this.setState({ filteredMsgs: filteredMessages})
-
-    //     })
-
-    // }
 
     toggleMessageForm = () => {
         this.setState({ messageFormClicked: !this.state.messageFormClicked })
@@ -75,34 +52,6 @@ class Conversation extends React.Component {
         })
         .then( () => this.setState({ text: ''}))
     }
-
-
-    // filterMessages = () => {
-    //     const { id } = this.props.eachConvo
-    //     let filteredMessages
-    //     filteredMessages = this.props.messages.filter(message => {
-    //         if(message.conversation_id === id){
-    //             return filteredMessages
-    //         } else {
-    //             return null
-    //         }
-    //     })
-    //     this.setState({ filteredMsgs: filteredMessages})
-    // }
-
-
-    // filterMessages = (id) => {
-    //     // const { id } = this.props.eachConvo
-    //     let filteredMessages
-    //     filteredMessages = this.props.messages.filter(message => {
-    //         if(message.conversation_id === id){
-    //             return filteredMessages
-    //         } else {
-    //             return null
-    //         }
-    //     })
-    //     this.setState({ filteredMsgs: filteredMessages})
-    // }
 
     render() {
 

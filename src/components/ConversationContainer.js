@@ -77,14 +77,17 @@ class ConversationContainer extends React.Component {
      
         return(
             <>
+                {/*This component creates a conversation */}       
                 <ConversationForm 
                 handleChange={this.handleChange} 
                 handleSubmit={this.handleSubmit}
                 title={title} />
                 <br/><br/>
 
+                {/*This is the search bar. */}       
                 <Search handleSearch={this.handleSearch}/>
                 
+                {/*This is each individual conversation component. */}       
                 {searchedConvos.map(eachConvo => 
                     <Conversation 
                     key={eachConvo.id} 

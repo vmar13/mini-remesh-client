@@ -1,6 +1,16 @@
 import React from 'react'
+import MessageForm from './MessageForm'
 
 class Conversation extends React.Component {
+
+    state = {
+        messageFormClicked: false
+    }
+
+    toggleMessageForm = () => {
+        this.setState({ messageFormClicked: !this.state.messageFormClicked })
+    }
+
     render() {
 
         const { eachConvo, handleChange } = this.props
@@ -12,8 +22,12 @@ class Conversation extends React.Component {
                     <p>Start Date: {eachConvo.start_date}</p>
                 </div>
 
-                <button >Create Message</button>
-               
+                <div>
+                    <button onClick={this.toggleMessageForm}>{this.state.messageFormClicked ? 'Close Message Form' : 'Create Message'}</button>
+                    {this.state.messageFormClicked ? <MessageForm handleChange={handleChange}/> : null }
+                </div>
+                
+                ***************************************************************************************************************************
             </>
         )
     }

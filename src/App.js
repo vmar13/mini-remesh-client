@@ -1,11 +1,14 @@
 import React from 'react'
 import ConversationContainer from './components/ConversationContainer'
-import {
-  BrowserRouter as Router,
-  Route, 
-  Switch
-} from 'react-router-dom'
+// import {
+//   BrowserRouter as Router,
+//   Route, 
+//   Switch
+// } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
+
 import MessagesContainer from './components/MessagesContainer'
+import ConversationShowPage from './components/ConversationShowPage'
 
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
@@ -39,16 +42,19 @@ render() {
   const { messages } = this.state
   
   return (
-    <>
+  
+<div>
+    <Switch>
 
-    <Router>
+        <Route  path='/conversations/:id' render={ (routeProps) => {
+          const convoId = parseInt(routeProps.match.params.id)
+          return <ConversationShowPage {...routeProps} convoId={convoId} />  } } />
+        <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
+        <Route  path='/' render={ (history) => <ConversationContainer  />} />
 
-      <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
-      <Route  path='/' render={ () => <ConversationContainer  />} />
+    </Switch>
+</div>
 
-    </Router>
-    
-  </>
   )
 }
 }

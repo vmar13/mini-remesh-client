@@ -10,8 +10,8 @@ class Conversation extends React.Component {
 
     state = {
         messageFormClicked: false,
-        text: '',
-        titleClicked: false
+        text: ''
+        // titleClicked: false
     }
 
 
@@ -19,9 +19,9 @@ class Conversation extends React.Component {
         this.setState({ messageFormClicked: !this.state.messageFormClicked })
     }
 
-    toggleTitleClicked = () => {
-        this.setState({ titleClicked: !this.state.titleClicked })
-    }
+    // toggleTitleClicked = () => {
+    //     this.setState({ titleClicked: !this.state.titleClicked })
+    // }
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value })
@@ -55,20 +55,18 @@ class Conversation extends React.Component {
 
     render() {
 
-        const { eachConvo, messages } = this.props
-        // console.log(this.state.filteredMsgs)
-        // let datetime = new Date().toLocaleString()
-        // console.log(datetime)
-        console.log(messages)
-        // console.log(eachConvo.id)
-        // console.log(this.state.filteredMsgs)
+        const { convoObj, messages, convoId } = this.props
+        console.log(this.props.convoId)
+
+        //If you click on a convoTitle, you should be taken to convo show page /conversations/:id
+        //On that convo show page, you'd render the messages container for that single convo
 
         return(
             <>
                 <div>
-                    <Link to='/messages' ><h2 onClick={this.toggleTitleClicked}>{eachConvo.title}</h2></Link> 
-                    <p>Start Date: {eachConvo.start_date}</p>
-                    {this.titleClicked ? <MessagesContainer id={eachConvo.id}/> : null }
+                    <Link to={`/conversations/${convoId}`} ><h2>{convoObj.title}</h2></Link> 
+                    <p>Start Date: {convoObj.start_date}</p>
+                    {/* {this.titleClicked ? <MessagesContainer convoId={eachConvo.id}/> : null } */}
                     
 
                 </div>

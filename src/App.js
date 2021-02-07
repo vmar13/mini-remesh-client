@@ -2,19 +2,28 @@ import React from 'react'
 import ConversationContainer from './components/ConversationContainer'
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
 import MessagesContainer from './components/MessagesContainer'
 
 
 const App = () => {
-  return (
-    <Router>
-      <Route exact path='/' component={ConversationContainer} />
-      <Route exact path='/messages' component={MessagesContainer} />
-    </Router>
-  )
 
+
+  
+  return (
+    <>
+    <Router>
+    <Switch>
+      <Route  path='/messages' render={ () => <MessagesContainer />} />
+      <Route  path='/' render={ () => <ConversationContainer />} />
+
+    </Switch>
+    </Router>
+    
+  </>
+  )
 }
 
 export default App

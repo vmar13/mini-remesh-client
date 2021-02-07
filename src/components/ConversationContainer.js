@@ -15,7 +15,6 @@ class ConversationContainer extends React.Component {
         searchTerm: '',
         title: '',
         messages: []
-     
     }
 
     componentDidMount() {
@@ -39,6 +38,40 @@ class ConversationContainer extends React.Component {
             this.setState({ messages: allMessages })
         })
     }
+
+    // getMessagesAndFilter = (id) => {
+    //     fetch(API_MESSAGES)
+    //     .then(res => res.json())
+    //     .then(allMessages => {
+    //         let filteredMessages
+    //         filteredMessages = allMessages.filter(message => {
+    //             if(message.conversation_id === id){
+    //                 return filteredMessages
+    //             } else {
+    //                 return null
+    //             }
+    //         })
+    //         this.setState({ filteredMsgs: filteredMessages})
+    //     })
+    // }
+
+    // handleTitleClick = (event) => {
+    //     this.setState({ conversationId: event.target.id })
+    //     console.log(this.state.conversationId)
+    // }
+
+    // filterMessages = (id) => {
+    //     // const { id } = this.props.eachConvo
+    //     let filteredMessages
+    //     filteredMessages = this.state.messages.filter(message => {
+    //         if(message.conversation_id === id){
+    //             return filteredMessages
+    //         } else {
+    //             return null
+    //         }
+    //     })
+    //     this.setState({ filteredMsgs: filteredMessages})
+    // }
 
     addNewConvo = newConvo => { 
         this.setState({ conversations: [...this.state.conversations, newConvo]})
@@ -87,9 +120,10 @@ class ConversationContainer extends React.Component {
 
     render() {
 
-        const { conversations, searchTerm, title } = this.state
+        const { conversations, searchTerm, title, messages } = this.state
         const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
        
+        console.log(this.state.messages)
      
         return(
             <>
@@ -110,7 +144,9 @@ class ConversationContainer extends React.Component {
                     eachConvo={eachConvo} 
                     handleChange={this.handleChange} 
                     addNewMessage={this.addNewMessage}
+                    messages={messages}
                     />
+
                 )}
                 
             </>

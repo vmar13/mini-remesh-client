@@ -10,11 +10,40 @@ class Conversation extends React.Component {
 
     state = {
         messageFormClicked: false,
-        text: ''
+        text: '',
+        titleClicked: false
     }
+
+    // componentDidMount(){
+    //     this.filterMessages(this.props.eachConvo.id)
+    // }
+
+    // filterMessages = (id) => {
+    //     let filteredMessages
+    //     filteredMessages = this.props.messages.filter(message => {
+    //         if(message.conversation_id === id){
+    //             this.setState({ filteredMsgs: filteredMessages})
+    //         } else {
+    //             return 
+    //         }
+    //     })
+    // }
+
+    // filterMessages = () => {
+    //     let filteredMessages = this.props.messages.filter(message => {
+    //         message.conversation_id === this.props.eachConvo.id
+    //         this.setState({ filteredMsgs: filteredMessages})
+
+    //     })
+
+    // }
 
     toggleMessageForm = () => {
         this.setState({ messageFormClicked: !this.state.messageFormClicked })
+    }
+
+    toggleTitleClicked = () => {
+        this.setState({ titleClicked: !this.state.titleClicked })
     }
 
     handleChange = event => {
@@ -47,20 +76,52 @@ class Conversation extends React.Component {
         .then( () => this.setState({ text: ''}))
     }
 
+
+    // filterMessages = () => {
+    //     const { id } = this.props.eachConvo
+    //     let filteredMessages
+    //     filteredMessages = this.props.messages.filter(message => {
+    //         if(message.conversation_id === id){
+    //             return filteredMessages
+    //         } else {
+    //             return null
+    //         }
+    //     })
+    //     this.setState({ filteredMsgs: filteredMessages})
+    // }
+
+
+    // filterMessages = (id) => {
+    //     // const { id } = this.props.eachConvo
+    //     let filteredMessages
+    //     filteredMessages = this.props.messages.filter(message => {
+    //         if(message.conversation_id === id){
+    //             return filteredMessages
+    //         } else {
+    //             return null
+    //         }
+    //     })
+    //     this.setState({ filteredMsgs: filteredMessages})
+    // }
+
     render() {
 
-        const { eachConvo } = this.props
+        const { eachConvo, messages } = this.props
+        // console.log(this.state.filteredMsgs)
         // let datetime = new Date().toLocaleString()
         // console.log(datetime)
-        // console.log(this.props.eachConvo.id)
+        console.log(messages)
+        // console.log(eachConvo.id)
+        // console.log(this.state.filteredMsgs)
 
         return(
             <>
                 <div>
-                    
-                {/* <Link to='/messages' component={MessagesContainer}>{eachConvo.title}</Link> */}
-                {/* <h2 <Link to='/messages' ></h2>>{eachConvo.title}</Link></h2> */}
+                    <Link to='/messages' ><h2 onClick={this.toggleTitleClicked}>{eachConvo.title}</h2></Link> 
                     <p>Start Date: {eachConvo.start_date}</p>
+                    {this.titleClicked ? <MessagesContainer id={eachConvo.id} messages={messages} /> : null }
+                    
+
                 </div>
 
                 <div>
@@ -73,9 +134,5 @@ class Conversation extends React.Component {
         )
     }
 }
-
-// onclick, toggle form to create message
-//on submit, collapse messageform
-//add Linkto tag to title and send to Messages container
 
 export default Conversation

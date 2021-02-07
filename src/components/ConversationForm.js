@@ -11,7 +11,6 @@ const ConversationForm = (props) => {
                         <div >
                             <h3>Create a Conversation</h3>
                             <input type='text' name='title' value={title} placeholder='Title' onChange={handleChange} /><br></br>
-                            {/* <input type='hidden' value={startDate} /><br></br> */}
                             <input type='submit' value='Submit'  />
                         </div>
                     </form>

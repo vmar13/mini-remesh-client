@@ -86,7 +86,11 @@ class ConversationContainer extends React.Component {
                 <Search handleSearch={this.handleSearch}/>
                 
                 {searchedConvos.map(eachConvo => 
-                    <Conversation key={eachConvo.id} eachConvo={eachConvo} />
+                    <Conversation 
+                    key={eachConvo.id} 
+                    eachConvo={eachConvo} 
+                    handleChange={this.handleChange} 
+                    />
                 )}
                 
             </>

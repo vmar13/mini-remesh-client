@@ -27,6 +27,12 @@ class ConversationContainer extends React.Component {
         })
     }
 
+    addNewConvo = newConvo => { 
+        this.setState({
+          conversations: [...this.state.conversations, newConvo]
+        })
+      }
+
     handleSearch = event => {
         this.setState({ searchTerm: event.target.value })
     }
@@ -37,11 +43,15 @@ class ConversationContainer extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        let startDate = new Date().toLocaleDateString("en-US")
+        let getDate = new Date().toLocaleDateString("en-US")
+        let reversedDate = getDate.split('/').reverse()
+        let year = reversedDate.shift()
+        let yearOnEnd = [...reversedDate, year]
+        let finalDate = yearOnEnd.join('/')
 
         const newConvo = {
             title: this.state.title,
-            start_date: startDate
+            start_date: finalDate
         }
 
         fetch(API_CONVOS, {
@@ -54,16 +64,17 @@ class ConversationContainer extends React.Component {
         })
         .then(res => res.json())
         .then(newConvo => {
-            console.log(newConvo)
+            this.addNewConvo(newConvo)
         })
+        .then( () => this.setState({ title: '' }))
     }
 
     render() {
 
         const { conversations, searchTerm, title } = this.state
         const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
-        let startDate = new Date().toLocaleDateString("en-US")
-        console.log(startDate)
+       
+     
         return(
             <>
                 <ConversationForm 

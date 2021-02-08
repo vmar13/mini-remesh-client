@@ -22,10 +22,6 @@ class Conversation extends React.Component {
         this.setState({ messageFormClicked: !this.state.messageFormClicked })
     }
 
-    // toggleTitleClicked = () => {
-    //     this.setState({ titleClicked: !this.state.titleClicked })
-    // }
-
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value })
     } 
@@ -78,19 +74,11 @@ class Conversation extends React.Component {
         })
     }
 
-    // toggleDisplayMessages = () => {
-    //     this.setState({ displayMessages: !this.state.displayMessages })
-    // }
-
     render() {
 
-        const { convoObj, messages, updateConvoObj } = this.props
+        const { convoObj, messages, addNewThought } = this.props
         const { filteredMsgs, displayMessageContainer, viewMsgsBtnClicked, messageFormClicked } = this.state
         // console.log(this.state.filteredMsgs)
-
-
-        //If you click on a convoTitle, you should be taken to convo show page /conversations/:id
-        //On that convo show page, you'd render the messages container for that single convo
 
         return(
             <>
@@ -107,7 +95,11 @@ class Conversation extends React.Component {
                 <h2>{convoObj.title}</h2><button onClick={this.getConvoMsgs}>{viewMsgsBtnClicked ?  'Close Messages' : 'View Messages'}</button>
 
                     <p>Start Date: {convoObj.start_date}</p>
-                    {displayMessageContainer ? <MessagesContainer filteredMsgs={filteredMsgs} handleChange={this.handleChange} /> : null }
+                    {displayMessageContainer ? 
+                    <MessagesContainer 
+                    filteredMsgs={filteredMsgs} 
+                    handleChange={this.handleChange} 
+                    addNewThought={addNewThought}/> : null }
                     
 
                 </div>

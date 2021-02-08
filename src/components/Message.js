@@ -8,7 +8,8 @@ class Message extends React.Component{
     
     state = {
         text: '',
-        thoughtFormClicked: false
+        thoughtFormClicked: false,
+        filteredThoughts: []
     }
 
     toggleThoughtForm = () => {
@@ -21,7 +22,7 @@ class Message extends React.Component{
 
     handleThoughtSubmit = event => {
         event.preventDefault()
-        const { id } = this.props
+        const { id } = this.props.filteredMsg
         let datetime = new Date().toLocaleString()
         
         const newThought = {
@@ -40,23 +41,33 @@ class Message extends React.Component{
         })
         .then(res => res.json())
         .then(newThought => {
-            // console.log(newThought)
             this.props.addNewThought(newThought)
         })
         .then( () => this.setState({ text: ''}))
+    }
+
+    getMsgThoughts = () => {
+        const { filteredMsg } = this.props
+        let msgThoughts = filteredMsg.thoughts
+        this.setState({
+            filteredThoughts: msgThoughts
+        })
     }
     
     render() {
 
         const { thoughtFormClicked } = this.state
-        const { text } = this.props
+        const { text } = this.props.filteredMsg
         // console.log(this.props.filteredMsg)
+        console.log(this.state.filteredThoughts)
 
         return(
             <>
                 <div>
                     {text}<button onClick={this.toggleThoughtForm}>{this.state.thoughtFormClicked ? 'Close Thought Form' : 'Create Thought'}</button>
                     {thoughtFormClicked ? <ThoughtForm handleChange={this.handleChange} handleThoughtSubmit={this.handleThoughtSubmit} text={this.state.text}/> : null }
+                    <button onClick={this.getMsgThoughts}>View Thoughts</button>
+
                 </div>
                 <div>
              

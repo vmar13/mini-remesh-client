@@ -6,7 +6,6 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom'
-// import { Redirect, Route, Switch } from 'react-router-dom'
 
 import MessagesContainer from './components/MessagesContainer'
 import ConversationShowPage from './components/ConversationShowPage'
@@ -22,8 +21,7 @@ class App extends React.Component {
 
   state = {
     messages: [],
-    thoughts: [],
-    conversationObj: {}
+    thoughts: []
   }
 
   componentDidMount() {
@@ -83,13 +81,10 @@ class App extends React.Component {
 //     })
 // }
 
-  updateConvoObj = convo => {
-    this.setState({ conversationObj: convo })
-  }
 
 render() {
 
-  const { messages, conversationObj, thoughts } = this.state
+  const { messages, thoughts } = this.state
   
   return (
   
@@ -104,12 +99,11 @@ render() {
             history={props.history}
             id={props.match.params.id}
             {...props}
-            conversationObj={conversationObj}
              />  } } />
 
-        <Route  path='/conversations' render={ () => <ConversationContainer updateConvoObj={this.updateConvoObj} addNewMessage={this.addNewMessage} />} />
+        <Route  path='/conversations' render={ () => <ConversationContainer addNewMessage={this.addNewMessage} addNewThought={this.addNewThought} />} />
         <Route  path='/conversation' render={ () => <Conversation  />} />
-        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} thoughts={thoughts} addNewThought={this.addNewThought}/>} />
+        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} thoughts={thoughts} />} />
         <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 

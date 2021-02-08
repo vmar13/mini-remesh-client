@@ -63,7 +63,10 @@ class Message extends React.Component{
                 if(thoughtObj.message_id === id){
                     filteredMsgThts.push(thoughtObj)
                 }
-                this.setState({ msgThoughts: filteredMsgThts })
+                this.setState({ 
+                    msgThoughts: filteredMsgThts,
+                    viewThoughtsBtnClicked: !this.state.viewThoughtsBtnClicked 
+                })
             }
         }
        
@@ -75,7 +78,7 @@ class Message extends React.Component{
 
         const { thoughtFormClicked, viewThoughtsBtnClicked, msgThoughts } = this.state
         const { text } = this.props.convoMsg
-        console.log(this.state.msgThoughts)
+        // console.log(this.state.msgThoughts)
     
 
         return(

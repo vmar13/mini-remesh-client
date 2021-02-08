@@ -3,11 +3,11 @@ import Thought from './Thought'
 
 const ThoughtsContainer = props => {
 
-    const { filteredThoughts } = props
+    const { msgThoughts } = props
 
     return (
         <div>
-            {filteredThoughts.map(filteredTht => <Thought key={filteredTht.id} filteredTht={filteredTht} />)}
+            {msgThoughts.map(filteredTht => <Thought key={filteredTht.id} filteredTht={filteredTht} />)}
         </div>
     )
 }

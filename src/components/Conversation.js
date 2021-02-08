@@ -107,7 +107,7 @@ class Conversation extends React.Component {
                     >{convoObj.title}</h2>
 
                     <p>Start Date: {convoObj.start_date}</p>
-                    {displayMessages ? <MessagesContainer filteredMsgs={filteredMsgs}/> : null }
+                    {displayMessages ? <MessagesContainer filteredMsgs={filteredMsgs} handleChange={this.handleChange} /> : null }
                     
 
                 </div>

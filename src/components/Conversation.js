@@ -11,9 +11,10 @@ class Conversation extends React.Component {
 
     state = {
         messageFormClicked: false,
+        displayMessageContainer: false,
+        viewMsgsBtnClicked: false,
         text: '',
-        filteredMsgs: [],
-        displayMessages: false
+        filteredMsgs: []
     }
 
 
@@ -72,8 +73,9 @@ class Conversation extends React.Component {
         let convoMessages = convoObj.messages
         this.setState({ 
             filteredMsgs: convoMessages,
-            displayMessages: !this.state.displayMessages
-         })
+            displayMessageContainer: !this.state.displayMessageContainer,
+            viewMsgsBtnClicked: !this.state.viewMsgsBtnClicked
+        })
     }
 
     // toggleDisplayMessages = () => {
@@ -83,7 +85,7 @@ class Conversation extends React.Component {
     render() {
 
         const { convoObj, messages, updateConvoObj } = this.props
-        const { filteredMsgs, displayMessages } = this.state
+        const { filteredMsgs, displayMessageContainer, viewMsgsBtnClicked, messageFormClicked } = this.state
         // console.log(this.state.filteredMsgs)
 
 
@@ -101,19 +103,17 @@ class Conversation extends React.Component {
                     // onClick={() => updateConvoObj(convoObj)}
                     ><h2>{convoObj.title}</h2>
                     </Link>  */}
-                    <h2 
-                    onClick=
-                    {this.getConvoMsgs}
-                    >{convoObj.title}</h2>
+
+                <h2>{convoObj.title}</h2><button onClick={this.getConvoMsgs}>{viewMsgsBtnClicked ?  'Close Messages' : 'View Messages'}</button>
 
                     <p>Start Date: {convoObj.start_date}</p>
-                    {displayMessages ? <MessagesContainer filteredMsgs={filteredMsgs} handleChange={this.handleChange} /> : null }
+                    {displayMessageContainer ? <MessagesContainer filteredMsgs={filteredMsgs} handleChange={this.handleChange} /> : null }
                     
 
                 </div>
 
                 <div>
-                    <button onClick={this.toggleMessageForm}>{this.state.messageFormClicked ? 'Close Message Form' : 'Create Message'}</button>
+                    <button onClick={this.toggleMessageForm}>{messageFormClicked ? 'Close Message Form' : 'Create Message'}</button>
                     {this.state.messageFormClicked ? <MessageForm handleChange={this.handleChange} handleMessageSubmit={this.handleMessageSubmit} text={this.state.text}/> : null }
                 </div>
                 

@@ -19,11 +19,11 @@ class MessagesContainer extends React.Component{
 
     render() {
 
-        const { handleChange } = this.props
+        const { handleChange, addNewThought } = this.props
 
         return (
             <div>
-               {this.props.filteredMsgs.map(filteredMsg => <Message key={filteredMsg.id} {...filteredMsg} handleChange={handleChange} />)}
+               {this.props.filteredMsgs.map(filteredMsg => <Message key={filteredMsg.id} {...filteredMsg} handleChange={handleChange} addNewThought={addNewThought}/>)}
             </div>
         )
     }

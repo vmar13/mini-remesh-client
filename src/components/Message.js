@@ -21,7 +21,7 @@ class Message extends React.Component{
 
     handleThoughtSubmit = event => {
         event.preventDefault()
-        const { id } = this.props.filteredMsg
+        const { id } = this.props
         let datetime = new Date().toLocaleString()
         
         const newThought = {
@@ -40,6 +40,7 @@ class Message extends React.Component{
         })
         .then(res => res.json())
         .then(newThought => {
+            // console.log(newThought)
             this.props.addNewThought(newThought)
         })
         .then( () => this.setState({ text: ''}))
@@ -49,6 +50,7 @@ class Message extends React.Component{
 
         const { thoughtFormClicked } = this.state
         const { text } = this.props
+        // console.log(this.props.filteredMsg)
 
         return(
             <>

@@ -15,16 +15,20 @@ import Conversation from './components/Conversation'
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
 const API_CONVOS = `http://localhost:3000/api/v1/conversations`
+const API_THOUGHTS = `http://localhost:3000/api/v1/thoughts`
+
 
 class App extends React.Component {
 
   state = {
     messages: [],
+    thoughts: [],
     conversationObj: {}
   }
 
   componentDidMount() {
     this.getMessages()
+    this.getThoughts()
 }
 
   getMessages = () => {
@@ -35,10 +39,21 @@ class App extends React.Component {
     })
   }
 
+  getThoughts = () => {
+    fetch(API_THOUGHTS)
+    .then(res => res.json())
+    .then(allThoughts => {
+        this.setState({ thoughts: allThoughts })
+    })
+  }
+
   addNewMessage = newMessage => {
     this.setState({ messages: [...this.state.messages, newMessage]})
   }
 
+  addNewThought = newThought => {
+    this.setState({ thoughts: [...this.state.thoughts, newThought]})
+  }
 //   getConvoObj = (id) => {
 //     fetch(`${API_CONVOS}/${id}`)
 //     .then(res => res.json())
@@ -94,7 +109,7 @@ render() {
 
         <Route  path='/conversations' render={ () => <ConversationContainer updateConvoObj={this.updateConvoObj} addNewMessage={this.addNewMessage} />} />
         <Route  path='/conversation' render={ () => <Conversation  />} />
-        <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
+        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} addNewThought={this.addNewThought}/>} />
         <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 

@@ -89,7 +89,7 @@ class App extends React.Component {
 
 render() {
 
-  const { messages, conversationObj } = this.state
+  const { messages, conversationObj, thoughts } = this.state
   
   return (
   
@@ -109,7 +109,7 @@ render() {
 
         <Route  path='/conversations' render={ () => <ConversationContainer updateConvoObj={this.updateConvoObj} addNewMessage={this.addNewMessage} />} />
         <Route  path='/conversation' render={ () => <Conversation  />} />
-        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} addNewThought={this.addNewThought}/>} />
+        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} thoughts={thoughts} addNewThought={this.addNewThought}/>} />
         <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 

@@ -19,7 +19,7 @@ class MessagesContainer extends React.Component{
 
     render() {
 
-        const { handleChange, addNewThought } = this.props
+        const { handleChange, addNewThought, thoughts } = this.props
 
         return (
             <div>

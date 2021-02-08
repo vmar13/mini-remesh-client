@@ -75,7 +75,7 @@ class ConversationContainer extends React.Component {
     render() {
 
         const { conversations, searchTerm, title } = this.state
-        const { messages, convoId } = this.props
+        const { messages, convoId, updateConvoObj, addNewMessage } = this.props
 
         const searchedConvos = conversations.filter(convo => convo.title.toLowerCase().includes(searchTerm.toLowerCase()))
        
@@ -99,8 +99,9 @@ class ConversationContainer extends React.Component {
                     key={eachConvo.id} 
                     convoObj={eachConvo} 
                     handleChange={this.handleChange} 
-                    addNewMessage={this.addNewMessage}
+                    addNewMessage={addNewMessage}
                     convoId={convoId}
+                    updateConvoObj={updateConvoObj}
                     />
 
                 )}

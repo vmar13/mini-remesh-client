@@ -88,12 +88,12 @@ render() {
           <ConversationShowPage 
             history={props.history}
             id={props.match.params.id}
-            conversationObj={conversationObj}
             {...props}
+            conversationObj={conversationObj}
              />  } } />
 
-        <Route  path='/conversations' render={ () => <ConversationContainer  />} />
-        <Route  path='/conversation' render={ () => <Conversation updateConvoObj={this.updateConvoObj} />} />
+        <Route  path='/conversations' render={ () => <ConversationContainer updateConvoObj={this.updateConvoObj} addNewMessage={this.addNewMessage} />} />
+        <Route  path='/conversation' render={ () => <Conversation  />} />
         <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
         <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 

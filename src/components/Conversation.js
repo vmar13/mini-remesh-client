@@ -11,7 +11,10 @@ class Conversation extends React.Component {
 
     state = {
         messageFormClicked: false,
-        text: ''    }
+        text: '',
+        filteredMsgs: [],
+        displayMessages: false
+    }
 
 
     toggleMessageForm = () => {
@@ -28,7 +31,7 @@ class Conversation extends React.Component {
 
     handleMessageSubmit = event => {
         event.preventDefault()
-        const { id } = this.props.eachConvo
+        const { id } = this.props.convoObj
         let datetime = new Date().toLocaleString()
         
         const newMessage = {
@@ -52,21 +55,37 @@ class Conversation extends React.Component {
         .then( () => this.setState({ text: ''}))
     }
 
-    getConvoObj = (id) => {
-        fetch(`${API_CONVOS}/${id}`)
-        .then(res => res.json())
-        .then(convo => {
-                console.log(convo)
-                this.props.updateConvoObj(convo)
-            // this.setState({ 
-            //     conversationObj: convo,
-            // })
-        })
+    // getConvoObj = (id) => {
+    //     fetch(`${API_CONVOS}/${id}`)
+    //     .then(res => res.json())
+    //     .then(convo => {
+    //             console.log(convo)
+    //             this.props.updateConvoObj(convo)
+    //         // this.setState({ 
+    //         //     conversationObj: convo,
+    //         // })
+    //     })
+    // }
+
+    getConvoMsgs = () => {
+        const { convoObj } = this.props
+        let convoMessages = convoObj.messages
+        this.setState({ 
+            filteredMsgs: convoMessages,
+            displayMessages: !this.state.displayMessages
+         })
     }
+
+    // toggleDisplayMessages = () => {
+    //     this.setState({ displayMessages: !this.state.displayMessages })
+    // }
 
     render() {
 
-        const { convoObj, messages, getConvoObj } = this.props
+        const { convoObj, messages, updateConvoObj } = this.props
+        const { filteredMsgs, displayMessages } = this.state
+        // console.log(this.state.filteredMsgs)
+
 
         //If you click on a convoTitle, you should be taken to convo show page /conversations/:id
         //On that convo show page, you'd render the messages container for that single convo
@@ -76,16 +95,19 @@ class Conversation extends React.Component {
                 <div>
                     {/* <h2 onClick={() => getConvoObj(convoObj, convoObj.id)}>{convoObj.title}</h2>  */}
 
-                    <Link 
+                    {/* <Link 
                     to={`/conversations/${convoObj.id}`} 
                     key={convoObj.id}
-                    onClick={() => this.getConvoObj(convoObj.id)}
+                    // onClick={() => updateConvoObj(convoObj)}
                     ><h2>{convoObj.title}</h2>
-                    </Link> 
-                    {/* <h2><a onClick={() => getConvoObj(convoObj.id)}>{convoObj.title}</a></h2> */}
+                    </Link>  */}
+                    <h2 
+                    onClick=
+                    {this.getConvoMsgs}
+                    >{convoObj.title}</h2>
 
                     <p>Start Date: {convoObj.start_date}</p>
-                    {/* {this.titleClicked ? <MessagesContainer convoId={eachConvo.id}/> : null } */}
+                    {displayMessages ? <MessagesContainer filteredMsgs={filteredMsgs}/> : null }
                     
 
                 </div>

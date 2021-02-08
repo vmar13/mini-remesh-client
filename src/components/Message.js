@@ -1,5 +1,6 @@
 import React from 'react'
 import ThoughtForm from './ThoughtForm'
+import ThoughtsContainer from './ThoughtsContainer'
 
 const API_THOUGHTS = `http://localhost:3000/api/v1/thoughts`
 
@@ -9,7 +10,8 @@ class Message extends React.Component{
     state = {
         text: '',
         thoughtFormClicked: false,
-        filteredThoughts: []
+        viewThoughtsBtnClicked: false,
+        msgThoughts: []
     }
 
     toggleThoughtForm = () => {
@@ -22,7 +24,7 @@ class Message extends React.Component{
 
     handleThoughtSubmit = event => {
         event.preventDefault()
-        const { id } = this.props.filteredMsg
+        const { id } = this.props.convoMsg
         let datetime = new Date().toLocaleString()
         
         const newThought = {
@@ -46,32 +48,49 @@ class Message extends React.Component{
         .then( () => this.setState({ text: ''}))
     }
 
-    getMsgThoughts = () => {
-        const { filteredMsg } = this.props
-        let msgThoughts = filteredMsg.thoughts
-        this.setState({
-            filteredThoughts: msgThoughts
-        })
+
+    getMsgThoughts = (msgsArr) => {
+        const { id } = this.props.convoMsg
+        let messageThoughts
+        let filteredMsgThts = []
+        
+        // messageThoughts = msgsArr.map(msgAoA => msgAoA.thoughts)
+        messageThoughts = msgsArr.map(msgAoA => msgAoA.thoughts.map(thoughtArr => thoughtArr))
+
+        for(let arrOfArr of messageThoughts){
+            for(let thoughtObj of arrOfArr){
+                // console.log(thoughtObj)
+                if(thoughtObj.message_id === id){
+                    filteredMsgThts.push(thoughtObj)
+                }
+                this.setState({ msgThoughts: filteredMsgThts })
+            }
+        }
+       
     }
+
+
     
     render() {
 
-        const { thoughtFormClicked } = this.state
-        const { text } = this.props.filteredMsg
-        // console.log(this.props.filteredMsg)
-        console.log(this.state.filteredThoughts)
+        const { thoughtFormClicked, viewThoughtsBtnClicked, msgThoughts } = this.state
+        const { text } = this.props.convoMsg
+        console.log(this.state.msgThoughts)
+    
 
         return(
             <>
                 <div>
                     {text}<button onClick={this.toggleThoughtForm}>{this.state.thoughtFormClicked ? 'Close Thought Form' : 'Create Thought'}</button>
                     {thoughtFormClicked ? <ThoughtForm handleChange={this.handleChange} handleThoughtSubmit={this.handleThoughtSubmit} text={this.state.text}/> : null }
-                    <button onClick={this.getMsgThoughts}>View Thoughts</button>
+                    <button onClick={() => this.getMsgThoughts(this.props.messages)}>View Thoughts</button>
 
+                    {viewThoughtsBtnClicked ? 
+                    <ThoughtsContainer 
+                    msgThoughts={msgThoughts}
+                    /> : null }
                 </div>
-                <div>
-             
-                </div>
+               
             </>
         )
     }

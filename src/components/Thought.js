@@ -2,9 +2,10 @@ import React from 'react'
 
 const Thought = props => {
 
+    const { filteredTht } = props
     return (
         <div>
-            Thought goes here
+            {filteredTht.text}
         </div>
     )
 }

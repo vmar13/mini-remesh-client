@@ -14,7 +14,7 @@ class Conversation extends React.Component {
         displayMessageContainer: false,
         viewMsgsBtnClicked: false,
         text: '',
-        filteredMsgs: []
+        convoMsgs: []
     }
 
 
@@ -67,8 +67,9 @@ class Conversation extends React.Component {
     getConvoMsgs = () => {
         const { convoObj } = this.props
         let convoMessages = convoObj.messages
+        // console.log(convoObj)
         this.setState({ 
-            filteredMsgs: convoMessages,
+            convoMsgs: convoMessages,
             displayMessageContainer: !this.state.displayMessageContainer,
             viewMsgsBtnClicked: !this.state.viewMsgsBtnClicked
         })
@@ -77,8 +78,7 @@ class Conversation extends React.Component {
     render() {
 
         const { convoObj, messages, addNewThought } = this.props
-        const { filteredMsgs, displayMessageContainer, viewMsgsBtnClicked, messageFormClicked } = this.state
-        // console.log(this.state.filteredMsgs)
+        const { convoMsgs, displayMessageContainer, viewMsgsBtnClicked, messageFormClicked } = this.state
 
         return(
             <>
@@ -97,8 +97,9 @@ class Conversation extends React.Component {
                     <p>Start Date: {convoObj.start_date}</p>
                     {displayMessageContainer ? 
                     <MessagesContainer 
-                    filteredMsgs={filteredMsgs} 
+                    convoMsgs={convoMsgs} 
                     handleChange={this.handleChange} 
+                    messages={messages}
                     addNewThought={addNewThought}/> : null }
                     
 

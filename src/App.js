@@ -101,9 +101,9 @@ render() {
             {...props}
              />  } } />
 
-        <Route  path='/conversations' render={ () => <ConversationContainer addNewMessage={this.addNewMessage} addNewThought={this.addNewThought} />} />
+        <Route  path='/conversations' render={ () => <ConversationContainer messages={messages} addNewMessage={this.addNewMessage} addNewThought={this.addNewThought} />} />
         <Route  path='/conversation' render={ () => <Conversation  />} />
-        <Route  path='/messages' render={ () => <MessagesContainer messages={messages} thoughts={thoughts} />} />
+        <Route  path='/messages' render={ () => <MessagesContainer thoughts={thoughts} />} />
         <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 

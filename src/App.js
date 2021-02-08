@@ -1,11 +1,12 @@
 import React from 'react'
 import ConversationContainer from './components/ConversationContainer'
-// import {
-//   BrowserRouter as Router,
-//   Route, 
-//   Switch
-// } from 'react-router-dom'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route, 
+  Switch,
+  Redirect
+} from 'react-router-dom'
+// import { Redirect, Route, Switch } from 'react-router-dom'
 
 import MessagesContainer from './components/MessagesContainer'
 import ConversationShowPage from './components/ConversationShowPage'
@@ -13,11 +14,13 @@ import Conversation from './components/Conversation'
 
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
+const API_CONVOS = `http://localhost:3000/api/v1/conversations`
 
 class App extends React.Component {
 
   state = {
-    messages: []
+    messages: [],
+    conversationObj: {}
   }
 
   componentDidMount() {
@@ -36,33 +39,68 @@ class App extends React.Component {
     this.setState({ messages: [...this.state.messages, newMessage]})
   }
 
+//   getConvoObj = (id) => {
+//     fetch(`${API_CONVOS}/${id}`)
+//     .then(res => res.json())
+//     .then(convo => {
+//             console.log(convo)
+//             // this.props.history.push('/conversations/${id}')
+//         // this.setState({ 
+//         //     conversationObj: convo,
+//         // })
+//     })
+// }
 
+  // getConvoObj = (convo, id) => {
+  //   this.setState({ conversationObj: convo })
+  //   this.props.history.push('/conversations/${id}')
+  // }
+
+//   getConvoObj = () => {
+//     fetch(`${API_CONVOS}/${this.props.id}`)
+//     .then(res => res.json())
+//     .then(convo => {
+//             console.log(convo)
+        
+//         // this.setState({ 
+//         //     conversationObj: convo,
+//         // })
+//     })
+// }
+
+  updateConvoObj = convo => {
+    this.setState({ conversationObj: convo })
+  }
 
 render() {
 
-  const { messages } = this.state
+  const { messages, conversationObj } = this.state
   
   return (
   
-<div>
+
+  <Router>
     <Switch>
 
         <Route 
-          exact path='/conversations/:id' 
+          path='/conversations/:id' 
           render={ (props) => {
           <ConversationShowPage 
             history={props.history}
-            id={props.match.params.id} />  } } />
+            id={props.match.params.id}
+            conversationObj={conversationObj}
+            {...props}
+             />  } } />
 
-        {/* <Route  path='/conversations/:id' render={ routerProps => <ConversationShowPage {...routerProps} /> } /> */}
         <Route  path='/conversations' render={ () => <ConversationContainer  />} />
-        <Route  path='/conversation' render={ () => <Conversation  />} />
+        <Route  path='/conversation' render={ () => <Conversation updateConvoObj={this.updateConvoObj} />} />
         <Route  path='/messages' render={ () => <MessagesContainer messages={messages}/>} />
-        <Route  exact path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
+        <Route  path='/' render={ () => <Redirect to='/conversations' component={ConversationContainer} />} />
 
 
     </Switch>
-</div>
+    </Router>
+
 
   )
 }

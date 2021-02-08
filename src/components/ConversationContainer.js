@@ -19,7 +19,6 @@ class ConversationContainer extends React.Component {
 
     componentDidMount() {
         this.getConversations()
-        // this.getMessages()
     }
 
     getConversations = () => {
@@ -31,22 +30,10 @@ class ConversationContainer extends React.Component {
         })
     }
 
-    getMessages = () => {
-        fetch(API_MESSAGES)
-        .then(res => res.json())
-        .then(allMessages => {
-            this.setState({ messages: allMessages })
-        })
-    }
-
-
     addNewConvo = newConvo => { 
         this.setState({ conversations: [...this.state.conversations, newConvo]})
       }
 
-    addNewMessage = newMessage => {
-        this.setState({ messages: [...this.state.messages, newMessage]})
-    }
 
     handleSearch = event => {
         this.setState({ searchTerm: event.target.value })
@@ -90,9 +77,9 @@ class ConversationContainer extends React.Component {
         const { conversations, searchTerm, title } = this.state
         const { messages, convoId } = this.props
 
-        const searchedConvos = conversations.filter(convo => convo.title.includes(searchTerm))
+        const searchedConvos = conversations.filter(convo => convo.title.toLowerCase().includes(searchTerm.toLowerCase()))
        
-        console.log(this.state.messages)
+        // console.log(this.state.messages)
      
         return(
             <>

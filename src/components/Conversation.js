@@ -5,14 +5,13 @@ import MessagesContainer from './MessagesContainer'
 
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
+const API_CONVOS = `http://localhost:3000/api/v1/conversations`
 
 class Conversation extends React.Component {
 
     state = {
         messageFormClicked: false,
-        text: ''
-        // titleClicked: false
-    }
+        text: ''    }
 
 
     toggleMessageForm = () => {
@@ -53,9 +52,21 @@ class Conversation extends React.Component {
         .then( () => this.setState({ text: ''}))
     }
 
+    getConvoObj = (id) => {
+        fetch(`${API_CONVOS}/${id}`)
+        .then(res => res.json())
+        .then(convo => {
+                console.log(convo)
+                this.props.updateConvoObj(convo)
+            // this.setState({ 
+            //     conversationObj: convo,
+            // })
+        })
+    }
+
     render() {
 
-        const { convoObj, messages } = this.props
+        const { convoObj, messages, getConvoObj } = this.props
 
         //If you click on a convoTitle, you should be taken to convo show page /conversations/:id
         //On that convo show page, you'd render the messages container for that single convo
@@ -63,7 +74,16 @@ class Conversation extends React.Component {
         return(
             <>
                 <div>
-                    <Link to={`/conversations/${convoObj.id}`} ><h2>{convoObj.title}</h2></Link> 
+                    {/* <h2 onClick={() => getConvoObj(convoObj, convoObj.id)}>{convoObj.title}</h2>  */}
+
+                    <Link 
+                    to={`/conversations/${convoObj.id}`} 
+                    key={convoObj.id}
+                    onClick={() => this.getConvoObj(convoObj.id)}
+                    ><h2>{convoObj.title}</h2>
+                    </Link> 
+                    {/* <h2><a onClick={() => getConvoObj(convoObj.id)}>{convoObj.title}</a></h2> */}
+
                     <p>Start Date: {convoObj.start_date}</p>
                     {/* {this.titleClicked ? <MessagesContainer convoId={eachConvo.id}/> : null } */}
                     

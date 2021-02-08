@@ -15,6 +15,10 @@ class Message extends React.Component{
         this.setState({ thoughtFormClicked: !this.state.thoughtFormClicked })
     }
 
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
     handleThoughtSubmit = event => {
         event.preventDefault()
         const { id } = this.props.filteredMsg
@@ -44,13 +48,13 @@ class Message extends React.Component{
     render() {
 
         const { thoughtFormClicked } = this.state
-        const { text, handleChange } = this.props
+        const { text } = this.props
 
         return(
             <>
                 <div>
                     {text}<button onClick={this.toggleThoughtForm}>{this.state.thoughtFormClicked ? 'Close Thought Form' : 'Create Thought'}</button>
-                    {thoughtFormClicked ? <ThoughtForm handleChange={handleChange} handleThoughtSubmit={this.handleThoughtSubmit} text={this.state.text}/> : null }
+                    {thoughtFormClicked ? <ThoughtForm handleChange={this.handleChange} handleThoughtSubmit={this.handleThoughtSubmit} text={this.state.text}/> : null }
                 </div>
                 <div>
              

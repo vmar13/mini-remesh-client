@@ -14,7 +14,6 @@ class ConversationContainer extends React.Component {
         conversations: [],
         searchTerm: '',
         title: ''
-        // messages: []
     }
 
     componentDidMount() {

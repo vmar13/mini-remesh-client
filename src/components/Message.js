@@ -54,7 +54,6 @@ class Message extends React.Component{
         let messageThoughts
         let filteredMsgThts = []
         
-        // messageThoughts = msgsArr.map(msgAoA => msgAoA.thoughts)
         messageThoughts = msgsArr.map(msgAoA => msgAoA.thoughts.map(thoughtArr => thoughtArr))
 
         for(let arrOfArr of messageThoughts){

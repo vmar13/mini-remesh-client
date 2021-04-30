@@ -13,7 +13,6 @@ import Conversation from './components/Conversation'
 
 
 const API_MESSAGES = `http://localhost:3000/api/v1/messages`
-const API_CONVOS = `http://localhost:3000/api/v1/conversations`
 const API_THOUGHTS = `http://localhost:3000/api/v1/thoughts`
 
 
@@ -52,34 +51,6 @@ class App extends React.Component {
   addNewThought = newThought => {
     this.setState({ thoughts: [...this.state.thoughts, newThought]})
   }
-//   getConvoObj = (id) => {
-//     fetch(`${API_CONVOS}/${id}`)
-//     .then(res => res.json())
-//     .then(convo => {
-//             console.log(convo)
-//             // this.props.history.push('/conversations/${id}')
-//         // this.setState({ 
-//         //     conversationObj: convo,
-//         // })
-//     })
-// }
-
-  // getConvoObj = (convo, id) => {
-  //   this.setState({ conversationObj: convo })
-  //   this.props.history.push('/conversations/${id}')
-  // }
-
-//   getConvoObj = () => {
-//     fetch(`${API_CONVOS}/${this.props.id}`)
-//     .then(res => res.json())
-//     .then(convo => {
-//             console.log(convo)
-        
-//         // this.setState({ 
-//         //     conversationObj: convo,
-//         // })
-//     })
-// }
 
 
 render() {

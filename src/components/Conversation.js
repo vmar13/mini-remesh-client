@@ -1,6 +1,6 @@
 import React from 'react'
 import MessageForm from './MessageForm'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import MessagesContainer from './MessagesContainer'
 
 
@@ -51,18 +51,6 @@ class Conversation extends React.Component {
         })
         .then( () => this.setState({ text: ''}))
     }
-
-    // getConvoObj = (id) => {
-    //     fetch(`${API_CONVOS}/${id}`)
-    //     .then(res => res.json())
-    //     .then(convo => {
-    //             console.log(convo)
-    //             this.props.updateConvoObj(convo)
-    //         // this.setState({ 
-    //         //     conversationObj: convo,
-    //         // })
-    //     })
-    // }
 
     getConvoMsgs = () => {
         const { convoObj } = this.props
